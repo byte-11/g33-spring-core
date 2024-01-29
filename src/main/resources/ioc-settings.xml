@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
+    <bean id="aBean" class="uz.pdp.xml_based.ABean">
+        <constructor-arg name="b" ref="bBean"/>
+        <constructor-arg name="c" ref="cBean"/>
+    </bean>
+    <!--<bean id="aBean" class="uz.pdp.xml_based.ABean"
+        c:b-ref="bBean" c:c-ref="cBean"
+    />-->
+    <!--<bean id="aBean" class="uz.pdp.xml_based.ABean"
+        c:_0-ref="bBean" c:_1-ref="cBean"
+    />-->
+
+    <bean id="bBean" class="uz.pdp.xml_based.BBean" factory-method="getInstance"/>
+<!--    <bean id="cBean" class="uz.pdp.xml_based.CBean">-->
+<!--        <property name="dBean" ref="dBean"/>-->
+<!--    </bean>-->
+    <bean id="cBean" class="uz.pdp.xml_based.CBean"
+        p:dBean-ref="dBean"
+    />
+
+    <bean id="dBean" class="uz.pdp.xml_based.DBean"
+        init-method="init" destroy-method="destroy"
+    />
+
+    <bean id="datasourceManager" class="uz.pdp.xml_based.DatasourceManager">
+        <property name="driver" value="${spring.datasource.driver}"/>
+        <property name="url" value="${spring.datasource.url}"/>
+        <property name="username" value="${spring.datasource.username}"/>
+        <property name="password" value="${spring.datasource.password}"/>
+        <property name="schema" value="${spring.datasource.schema}"/>
+    </bean>
+    <bean id="userService" class="uz.pdp.xml_based.UserService"
+          c:datasourceManager-ref="datasourceManager"/>
+</beans>
