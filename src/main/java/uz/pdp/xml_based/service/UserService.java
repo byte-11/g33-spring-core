@@ -1,8 +1,10 @@
-package uz.pdp.xml_based;
+package uz.pdp.xml_based.service;
+
+import uz.pdp.xml_based.DatasourceManager;
 
 import java.sql.SQLException;
 
-public class UserService {
+public class UserService implements Service{
     private final DatasourceManager datasourceManager;
 
     public UserService(DatasourceManager datasourceManager) {

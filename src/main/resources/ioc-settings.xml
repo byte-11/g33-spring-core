@@ -22,15 +22,16 @@
     />-->
 
     <bean id="bBean" class="uz.pdp.xml_based.BBean" factory-method="getInstance"/>
-<!--    <bean id="cBean" class="uz.pdp.xml_based.CBean">-->
-<!--        <property name="dBean" ref="dBean"/>-->
-<!--    </bean>-->
+    <!--    <bean id="cBean" class="uz.pdp.xml_based.CBean">-->
+    <!--        <property name="dBean" ref="dBean"/>-->
+    <!--    </bean>-->
     <bean id="cBean" class="uz.pdp.xml_based.CBean"
-        p:dBean-ref="dBean"
+          p:dBean-ref="dBean"
     />
 
     <bean id="dBean" class="uz.pdp.xml_based.DBean"
-        init-method="init" destroy-method="destroy"
+          init-method="init" destroy-method="destroy"
+          scope="prototype"
     />
 
     <bean id="datasourceManager" class="uz.pdp.xml_based.DatasourceManager">
@@ -40,6 +41,11 @@
         <property name="password" value="${spring.datasource.password}"/>
         <property name="schema" value="${spring.datasource.schema}"/>
     </bean>
-    <bean id="userService" class="uz.pdp.xml_based.UserService"
+    <bean id="userService" class="uz.pdp.xml_based.service.UserService"
           c:datasourceManager-ref="datasourceManager"/>
+    <bean id="commentService" class="uz.pdp.xml_based.service.CommentService"/>
+    <bean id="publisherService" class="uz.pdp.xml_based.service.PublisherService"
+          c:service-ref="userService"
+          lazy-init="true"
+    />
 </beans>

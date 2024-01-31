@@ -3,8 +3,6 @@ package uz.pdp.java_based;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import uz.pdp.xml_based.DatasourceManager;
-import uz.pdp.xml_based.UserService;
 
 @Configuration
 @PropertySource("classpath:application.properties")
